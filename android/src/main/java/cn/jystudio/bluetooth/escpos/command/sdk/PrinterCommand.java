@@ -239,11 +239,15 @@ public class PrinterCommand {
         byte[] escM = Arrays.copyOf(Command.ESC_M, Command.ESC_M.length);
         escM[2] = (byte) nFontType;
         byte[] data = null;
+        
         if (codepage == 0) {
             data = concatAll(gsExclamationMark, escT, Command.FS_and, escM, pbString);
+        } else if (codepage == 1) {
+            data = concatAll(escM, pbString);
         } else {
             data = concatAll(gsExclamationMark, escT, Command.FS_dot, escM, pbString);
         }
+
         return data;
     }
 
